@@ -45,7 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThreadAsyncOperation.cs" />
     <Compile Include="ResXFileCodeGenerator.cs" />
@@ -54,22 +53,11 @@
   <ItemGroup>
     <EmbeddedResource Include="ElementTemplate.txt" />
     <EmbeddedResource Include="HeaderTemplate.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Program.resx">
-      <SubType>Designer</SubType>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Program.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="ResxDesignerGenerator.ResXFileCodeGenerator.addin.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ResxDesignerGenerator.ResXFileCodeGenerator.addin.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Program.Designer.cs">
-      <DependentUpon>Program.resx</DependentUpon>
-    </None>
+    <None Include="Program.cs" />
   </ItemGroup>
 </Project>

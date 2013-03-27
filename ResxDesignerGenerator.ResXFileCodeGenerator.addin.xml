@@ -1,9 +1,9 @@
 <Addin namespace   = "ResxDesignerGenerator"  
-       id          = "ResxDesignerGenerator"  
+       id          = "ResXFileCodeGenerator"  
        name        = "Resx Designer Generator"  
        author      = "Kenneth Skovhede"  
        copyright   = "MIT/X11"  
-       url         = "http://www.monodevelop.com"  
+       url         = "http://www.hexad.dk"  
        description = "Generates strongly typed designer files from .resx resources."  
        category    = "Strongly Typed Generators"  
        version     = "1.0">  
@@ -13,6 +13,6 @@
     </Dependencies>  
     
     <Extension path = "/MonoDevelop/Ide/CustomTools">  
-  		<Tool name="ResXFileCodeGenerator" type="ResxDesignerGenerator.ResxDesignerGenerator"/>
+  		<Tool name="ResXFileCodeGenerator" type="ResxDesignerGenerator.ResXFileCodeGenerator"/>
     </Extension>  
 </Addin> 
