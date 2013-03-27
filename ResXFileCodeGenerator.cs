@@ -37,8 +37,11 @@ namespace ResxDesignerGenerator
 			string ns = file.CustomToolNamespace;
 			if (string.IsNullOrEmpty (ns) && !string.IsNullOrEmpty (outputFile)) {
 				var dnp = file.Project as DotNetProject;
-					if (dnp != null)
-						ns = dnp.GetDefaultNamespace (outputFile);
+					if (dnp != null) {
+						ns = dnp.DefaultNamespace;
+						if (!string.IsNullOrEmpty (dnp.GetDefaultNamespace (outputFile)))
+							ns += "." + dnp.GetDefaultNamespace (outputFile);
+					}
 			}
 			return ns;
 		}
@@ -46,7 +49,7 @@ namespace ResxDesignerGenerator
 		#region ISingleFileCustomTool implementation
 
 		public IAsyncOperation Generate(IProgressMonitor monitor, ProjectFile file, SingleFileCustomToolResult result)
-		{
+		{		
 			return new ThreadAsyncOperation (delegate {
 				var outputfile = file.FilePath.ChangeExtension(".Designer.cs");
 				var ns = GetNamespaceHint (file, outputfile);
