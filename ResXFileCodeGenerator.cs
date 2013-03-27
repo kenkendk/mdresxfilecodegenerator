@@ -29,7 +29,7 @@ namespace ResxDesignerGenerator
 			}
 				
 			using(var w = new StreamWriter(designerfile, false, Encoding.UTF8))
-				w.Write(filetemplate.Replace("{runtime-version}", System.Environment.Version.ToString()).Replace("{namespace}", @namespace).Replace("{classname}", classname).Replace("{elementdata}", sb.ToString()));
+				w.Write(filetemplate.Replace("{runtime-version}", System.Environment.Version.ToString()).Replace("{namespace}", @namespace).Replace("{classname}", classname).Replace("{elementdata}", sb.ToString().Trim()));
 		}
 
 		internal static string GetNamespaceHint(ProjectFile file, string outputFile)
