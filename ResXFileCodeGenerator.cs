@@ -15,17 +15,20 @@ namespace ResxDesignerGenerator
 		{
 			var doc = XDocument.Load(resxfile).Root;
 			
-			foreach(var s in System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceNames())
-				Console.WriteLine(s);
 			var filetemplate = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("ResxDesignerGenerator.HeaderTemplate.txt")).ReadToEnd();
 			var elementtemplate = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("ResxDesignerGenerator.ElementTemplate.txt")).ReadToEnd();
 
 			var sb = new StringBuilder();
-			foreach(var node in from n in doc.Descendants() where n.Name == "data" select n)
+			foreach(var node in 
+				from d in (from n in doc.Descendants() where n.Name == "data" select n)
+				let name = d.Attribute("name").Value
+				let value = d.Descendants().First().Value
+				orderby name
+				select new { Name = name, Value = value }
+				)
 			{
-				var name = node.Attribute("name").Value;
-				var value = node.Descendants().First().Value;
-				sb.Append(elementtemplate.Replace("{name}", name).Replace("{value}", System.Web.HttpUtility.HtmlEncode(value.Trim().Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n        ///"))));
+				sb.Append(elementtemplate.Replace("{name}", node.Name).Replace("{value}", System.Web.HttpUtility.HtmlEncode(node.Value.Trim().Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", "\r\n        ///"))));
+				sb.Append("\r\n");
 			}
 				
 			using(var w = new StreamWriter(designerfile, false, Encoding.UTF8))
