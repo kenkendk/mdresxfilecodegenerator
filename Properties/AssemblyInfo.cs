@@ -11,7 +11,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyProduct("ResxDesignerGenerator")]
 [assembly: AssemblyCopyright("HexaD")]
 [assembly: AssemblyTrademark("ResxDesignerGenerator")]
-[assembly: AssemblyCulture("en-US")]
+[assembly: AssemblyCulture("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
