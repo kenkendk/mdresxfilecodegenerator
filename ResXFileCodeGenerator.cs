@@ -41,9 +41,14 @@ namespace ResxDesignerGenerator
 			if (string.IsNullOrEmpty (ns) && !string.IsNullOrEmpty (outputFile)) {
 				var dnp = file.Project as DotNetProject;
 					if (dnp != null) {
-						ns = dnp.DefaultNamespace;
+						var vp =  file.ProjectVirtualPath.ParentDirectory.ToString().Replace(System.IO.Path.DirectorySeparatorChar, '.').Replace(System.IO.Path.AltDirectorySeparatorChar, '.').Trim().Replace(' ', '_');
+						if (!string.IsNullOrEmpty(vp))
+							vp = '.' + vp;
+					
 						if (!string.IsNullOrEmpty (dnp.GetDefaultNamespace (outputFile)))
-							ns += "." + dnp.GetDefaultNamespace (outputFile);
+							ns = dnp.GetDefaultNamespace(outputFile) + vp;
+						else
+							ns = dnp.DefaultNamespace + vp;
 					}
 			}
 			return ns;
@@ -57,7 +62,7 @@ namespace ResxDesignerGenerator
 				var outputfile = file.FilePath.ChangeExtension(".Designer.cs");
 				var ns = GetNamespaceHint (file, outputfile);
 				var cn = file.FilePath.FileNameWithoutExtension;
-				
+								
 				GenerateDesignerFile(file.FilePath.FullPath, ns, cn, outputfile);
 				result.GeneratedFilePath = outputfile;
 			}, result);		
